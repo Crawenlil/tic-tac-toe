@@ -9,6 +9,9 @@ class GameState():
 
     def get_current_player(self):
         return self.player_x if self.turn == PLAYER_X else self.player_o
+
+    def __hash__(self):
+        return hash((self.board, self.turn)) 
         
 
 
