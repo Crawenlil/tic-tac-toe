@@ -24,4 +24,7 @@ class Board(object):
         bot = '   └' + '───┴' * (self.n - 1) + '───┘'
         return numbers + top + middle + bot
 
+    def __hash__(self):
+        return hash(str(self))
+
 

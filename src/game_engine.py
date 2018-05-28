@@ -5,6 +5,8 @@ from action import Action
 
 def make_move(state, action):
     action(state)
+
+def end_move(state):
     change_turn(state)
 
 def change_turn(state):
