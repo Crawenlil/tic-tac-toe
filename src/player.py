@@ -94,6 +94,7 @@ class QPlayer(Player):
         reward = game_engine.get_winner(state)
         if reward is None:
             reward = 0
+        reward = abs(reward)
         next_best_action = self.get_best_actoion(state)
         next_best_action_value = 0
         if next_best_action:

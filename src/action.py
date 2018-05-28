@@ -8,5 +8,10 @@ class Action(object):
 
     def __str__(self):
         return "{}, {} -> {}".format(self.coords[0], self.coords[1], self.symbol)
+    def __repr__(self):
+        return str(self)
+
+    def __hash__(self):
+        return hash((self.coords[0], self.coords[1]))
 
 
