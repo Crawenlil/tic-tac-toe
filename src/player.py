@@ -1,5 +1,7 @@
 import game_engine
 from utils import *
+import random
+import copy
 
 class Player(object):
 
@@ -23,6 +25,28 @@ class HumanPlayer(Player):
             for action in actions:
                 if action.coords[0] == command[0] and action.coords[1] == command[1]:
                     game_engine.make_move(state, action)
+
+class RandomPlayer(Player):
+    def make_move(self, state):
+        actions = game_engine.actions(state)
+        action = random.choice(actions)
+        game_engine.make_move(state, action)
+
+class SupervisedLearningPlayer(Player):
+    def __init__(self, name, classifier):
+        self.name = name
+        self.classifier = classifier
+
+    def make_move(self, state):
+        actions = game_engine.actions(state)
+        applied_actions = []
+        for action in actions:
+            tmp_state = copy.deepcopy(state)
+            game_engine.make_move(tmp_state, action)
+            applied_actions.append(tmp_state)
+        action_scores = self.classifier.predict(applied_actions)
+        return actions[0]
+
 
 class QPlayer(Player):
     
@@ -51,7 +75,6 @@ class QPlayer(Player):
         prev_state_dict = self.q[state] #store reference, so after changing state to new we can still update value
         game_engine.make_move(state, best_action)
         update_q(prev_state_dict, state, best_action)
-        print(self.q)
 
     def update_q(self, prev_state_dict, state, action):
         reward = game_engine.get_winner(state)
@@ -61,13 +84,4 @@ class QPlayer(Player):
         prev_state_dict[action] = (1 - self.alpha) * prev_state_dict[action] + self.alpha * (reward + self.gamma * self.q[state][max_next_q])
 
          
-            
-
-
-
-
-        
-            
-        
-
 

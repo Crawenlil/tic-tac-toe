@@ -6,6 +6,7 @@ from utils import *
 from board import Board
 from game_state import *
 import game_engine
+import copy
 
 
 class GameExecutor(object):
@@ -17,9 +18,35 @@ class GameExecutor(object):
 
     def play(self, board_size, n_games=1, with_ui=True):
         if with_ui:
-            self.play_game_with_ui(board_size)
+            winner = self.play_game_with_ui(board_size)
         else:
-            self.play_game_no_ui(n_games)
+            winner = self.play_game_no_ui(board_size)
+        print("Winner: {}".format(winner))
+
+    def prepare_train_set(self, board_size, n_games):
+        train = [self.play_game_no_ui(board_size, return_history=True) for _ in range(n_games)]
+        return train
+
+    def play_game_no_ui(self, board_size, return_history=False):
+        gs = GameState(Board(board_size), self.player_x, self.player_o, PLAYER_X)
+
+        if return_history:
+            states_history = [copy.deepcopy(gs)]
+
+        while game_engine.get_winner(gs) is None:
+            if gs.turn == PLAYER_X:
+                self.player_x.make_move(gs)
+            else:
+                self.player_o.make_move(gs)
+            if return_history:
+                states_history.append(copy.deepcopy(gs))
+
+        winner = game_engine.get_winner(gs)
+
+        if return_history:
+            return winner, states_history
+        else:
+            return winner
 
     def play_game_with_ui(self, board_size):
         self.gs = GameState(Board(board_size), self.player_x, self.player_o, PLAYER_X)
