@@ -7,6 +7,7 @@ from board import Board
 from game_state import *
 import game_engine
 import copy
+import numpy as np
 
 
 class GameExecutor(object):
@@ -17,15 +18,25 @@ class GameExecutor(object):
         self.stop_at_end = stop_at_end
 
     def play(self, board_size, n_games=1, with_ui=True):
-        if with_ui:
-            winner = self.play_game_with_ui(board_size)
-        else:
-            winner = self.play_game_no_ui(board_size)
-        print("Winner: {}".format(winner))
+        winners = dict()
+        for _ in range(n_games):
+            if with_ui:
+                winner = self.play_game_with_ui(board_size)
+            else:
+                winner = self.play_game_no_ui(board_size)
+            winners[winner] = winners.get(winner, 0) + 1
+        print("Stats: {}".format(winners))
+        return winners
 
     def prepare_train_set(self, board_size, n_games):
         train = [self.play_game_no_ui(board_size, return_history=True) for _ in range(n_games)]
-        return train
+        X = []
+        Y = []
+        for winner, game_states in train:
+            for gs in game_states:
+                X.append(gs)
+                Y.append(winner)
+        return np.array(X), np.array(Y)
 
     def play_game_no_ui(self, board_size, return_history=False):
         gs = GameState(Board(board_size), self.player_x, self.player_o, PLAYER_X)

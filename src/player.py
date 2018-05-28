@@ -45,8 +45,12 @@ class SupervisedLearningPlayer(Player):
             game_engine.make_move(tmp_state, action)
             applied_actions.append(tmp_state)
         action_scores = self.classifier.predict(applied_actions)
-        return actions[0]
-
+        if state.turn < 0:
+            best_action_index = action_scores.argmin()
+        else:
+            best_action_index = action_scores.argmax()
+        action = actions[best_action_index]
+        game_engine.make_move(state, action)
 
 class QPlayer(Player):
     

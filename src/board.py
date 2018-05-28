@@ -23,5 +23,3 @@ class Board(object):
                 middle += '   ├' + '───┼' * (self.n - 1) + '───┤' + '\n'
         bot = '   └' + '───┴' * (self.n - 1) + '───┘'
         return numbers + top + middle + bot
-
-
