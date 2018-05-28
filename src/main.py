@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from game_executor import GameExecutor 
 from player import HumanPlayer, QPlayer
 
