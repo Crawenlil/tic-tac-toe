@@ -28,8 +28,8 @@ class GameExecutor(object):
         print("Stats: {}".format(winners))
         return winners
 
-    def prepare_train_set(self, board_size, n_games):
-        train = [self.play_game_no_ui(board_size, return_history=True) for _ in range(n_games)]
+    def prepare_train_set(self, board_size, starting_player, n_games):
+        train = [self.play_game_no_ui(board_size, starting_player, return_history=True) for _ in range(n_games)]
         X = []
         Y = []
         for winner, game_states in train:

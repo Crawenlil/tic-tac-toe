@@ -4,9 +4,8 @@ import random
 import copy
 
 class Player(object):
-    def __init__(self, name, which_player):
+    def __init__(self, name):
         self.name = name
-        self.which_player = which_player
 
     def make_move(self, state):
         game_engine.end_move(state)
@@ -35,8 +34,8 @@ class RandomPlayer(Player):
         super(RandomPlayer, self).make_move(state)
 
 class SupervisedLearningPlayer(Player):
-    def __init__(self, name, which_player, classifier):
-        super(SupervisedLearningPlayer, self).__init__(name, which_player)
+    def __init__(self, name, classifier):
+        super(SupervisedLearningPlayer, self).__init__(name)
         self.classifier = classifier
 
     def make_move(self, state):
@@ -56,8 +55,8 @@ class SupervisedLearningPlayer(Player):
         super(SupervisedLearningPlayer, self).make_move(state)
 
 class QPlayer(Player):
-    def __init__(self, name, which_player, alpha, gamma):
-        super(QPlayer, self).__init__(name, which_player)
+    def __init__(self, name, alpha, gamma):
+        super(QPlayer, self).__init__(name)
         self.alpha = alpha
         self.gamma = gamma
         self.q = self.init_q()
