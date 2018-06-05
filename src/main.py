@@ -23,11 +23,11 @@ def try_load_player(path):
         if path == "QPlayer":
             return train_q_player(3, 10000)
         elif path == "SuperPlayer":
-            return train_player(3, 1000)
+            return train_player(3, 10000)
         elif path == "RandomPlayer":
             return RandomPlayer("RandomPlayer")
         elif path == "HumanPlayer":
-            return RandomPlayer("HumanPlayer")
+            return HumanPlayer("HumanPlayer")
         else:
             raise Exception("Unknown player: {}".format(path))
     with open(path, 'rb') as f:
@@ -36,7 +36,7 @@ def try_load_player(path):
 def try_save_player(player, path):
     if path is not None:
         with open(path, 'wb') as f:
-            pickle.dump(player, path)
+            pickle.dump(player, f)
 
 def parse_args():
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def train_player(board_size, train_set_size):
     game_executor = GameExecutor(player, player)
     X, Y = game_executor.prepare_train_set(board_size=board_size, starting_player=PLAYER_X, n_games=train_set_size)
     ft = FunctionTransformer(game_state_to_array, validate=False)
-    clf = MLPRegressor(hidden_layer_sizes=(board_size*board_size, board_size, 1), batch_size=len(Y), max_iter=1000)
+    clf = MLPRegressor(hidden_layer_sizes=(board_size*board_size, board_size*board_size, 1), batch_size=int(0.001*len(Y)), max_iter=1000)
     the_classifier = Pipeline([('game_state_to_array', ft), ('game_state_classifier', clf)])
     the_classifier.fit(X, Y)
     the_player = SupervisedLearningPlayer("Super Player", the_classifier)
@@ -78,20 +78,16 @@ def test(player1, player2, ui):
     for k in set(list(winners1.keys()) + list(winners2.keys())):
         print("{}: {}".format(k, winners1[k] + winners2[k]))
 
-def play_with_hooman(board_size):
-    super_player = train_player(board_size=board_size, train_set_size=10000)
-    #super_player = RandomPlayer("Random")
-    hooman_player = HumanPlayer("Human")
-    game_executor = GameExecutor(super_player, hooman_player)
+def play_with_hooman(a, b, board_size):
+    game_executor = GameExecutor(a, b)
     winner = game_executor.play(board_size=board_size, starting_player=PLAYER_X, n_games=1, with_ui=True)
-
 
 def main():
     args = parse_args()
-    test(args.player_a, args.player_b, args.with_ui)
+    # test(args.player_a, args.player_b, args.with_ui)
+    play_with_hooman(args.player_a, args.player_b, board_size=3)
     try_save_player(args.player_a, args.player_a_to)
     try_save_player(args.player_b, args.player_b_to)
-    play_with_hooman(board_size=3)
 
 if __name__ == '__main__':
     main()

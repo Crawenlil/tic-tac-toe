@@ -11,12 +11,15 @@ class Player(object):
         game_engine.end_move(state)
 
     def set_commands_getter(self, commands_getter):
-        self.get_command = commands_getter
+        pass
 
     def __str__(self):
         return self.name
 
 class HumanPlayer(Player):
+    def set_commands_getter(self, commands_getter):
+        self.get_command = commands_getter
+
     def make_move(self, state):
         actions = game_engine.actions(state)
         command = self.get_command()
