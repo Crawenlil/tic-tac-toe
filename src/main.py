@@ -33,20 +33,29 @@ def train_q_player(board_size, train_set_size):
 def test(player1, player2):
     game_executor = GameExecutor(player1, player2)
     winners1 = game_executor.play(board_size=3, starting_player=PLAYER_X, n_games=100, with_ui=False)
-    print("Swap")
     game_executor = GameExecutor(player2, player1)
     winners2 = game_executor.play(board_size=3, starting_player=PLAYER_X, n_games=100, with_ui=False)
     print("Total stats:")
     print("1 - {}".format(player1))
     print("-1 - {}".format(player2))
+    winners2[1], winners2[-1] = winners2[-1], winners2[1] 
     for k in set(list(winners1.keys()) + list(winners2.keys())):
-        print("{}: {}".format(k, winners1.get(k, 0) + winners2.get(-1*k, 0)))
+        print("{}: {}".format(k, winners1[k] + winners2[k]))
+
+def play_with_hooman(board_size):
+    super_player = train_player(board_size=board_size, train_set_size=10000)
+    #super_player = RandomPlayer("Random")
+    hooman_player = HumanPlayer("Human")
+    game_executor = GameExecutor(super_player, hooman_player)
+    winner = game_executor.play(board_size=board_size, starting_player=PLAYER_X, n_games=1, with_ui=True)
+
 
 def main():
-    q_player = train_q_player(board_size=3, train_set_size=10000)
-    super_player = train_player(board_size=3, train_set_size=1000)
-    random = RandomPlayer("Random")
-    test(q_player, super_player)
+    #q_player = train_q_player(board_size=3, train_set_size=10000)
+    #super_player = train_player(board_size=3, train_set_size=1000)
+    #random = RandomPlayer("Random")
+    #test(super_player, q_player)
+    play_with_hooman(board_size=3)
 
 if __name__ == '__main__':
     main()
