@@ -69,20 +69,29 @@ def train_q_player(board_size, train_set_size):
 def test(player1, player2, ui):
     game_executor = GameExecutor(player1, player2)
     winners1 = game_executor.play(board_size=3, starting_player=PLAYER_X, n_games=100, with_ui=ui)
-    print("Swap")
     game_executor = GameExecutor(player2, player1)
     winners2 = game_executor.play(board_size=3, starting_player=PLAYER_X, n_games=100, with_ui=ui)
     print("Total stats:")
     print("A - 1 - {}".format(player1))
     print("B - -1 - {}".format(player2))
+    winners2[1], winners2[-1] = winners2[-1], winners2[1] 
     for k in set(list(winners1.keys()) + list(winners2.keys())):
-        print("{}: {}".format(k, winners1.get(k, 0) + winners2.get(-1*k, 0)))
+        print("{}: {}".format(k, winners1[k] + winners2[k]))
+
+def play_with_hooman(board_size):
+    super_player = train_player(board_size=board_size, train_set_size=10000)
+    #super_player = RandomPlayer("Random")
+    hooman_player = HumanPlayer("Human")
+    game_executor = GameExecutor(super_player, hooman_player)
+    winner = game_executor.play(board_size=board_size, starting_player=PLAYER_X, n_games=1, with_ui=True)
+
 
 def main():
     args = parse_args()
     test(args.player_a, args.player_b, args.with_ui)
     try_save_player(args.player_a, args.player_a_to)
     try_save_player(args.player_b, args.player_b_to)
+    play_with_hooman(board_size=3)
 
 if __name__ == '__main__':
     main()

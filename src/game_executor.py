@@ -8,6 +8,7 @@ from game_state import *
 import game_engine
 import copy
 import numpy as np
+from collections import defaultdict
 
 
 class GameExecutor(object):
@@ -18,14 +19,13 @@ class GameExecutor(object):
         self.stop_at_end = stop_at_end
 
     def play(self, board_size, starting_player=PLAYER_X, n_games=1, with_ui=True):
-        winners = dict()
+        winners = defaultdict(int)
         for _ in range(n_games):
             if with_ui:
                 winner = self.play_game_with_ui(board_size, starting_player)
             else:
                 winner = self.play_game_no_ui(board_size, starting_player)
             winners[winner] = winners.get(winner, 0) + 1
-        print("Stats: {}".format(winners))
         return winners
 
     def prepare_train_set(self, board_size, starting_player, n_games):

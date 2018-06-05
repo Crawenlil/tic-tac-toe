@@ -24,7 +24,7 @@ class HumanPlayer(Player):
             for action in actions:
                 if action.coords[0] == command[0] and action.coords[1] == command[1]:
                     game_engine.make_move(state, action)
-        super(HumanPlayer, self).make_move(state)
+            super(HumanPlayer, self).make_move(state)
 
 class RandomPlayer(Player):
     def make_move(self, state):
