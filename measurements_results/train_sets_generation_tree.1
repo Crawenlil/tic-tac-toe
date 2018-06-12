@@ -1,98 +1,90 @@
-clf = MLPRegressor(hidden_layer_sizes=(board_size*board_size, board_size*board_size, 1), batch_size=int(0.01*len(Y)), max_iter=1000)
-
-./main.py --player-a MLPPlayer --n-games=1000 --measure-train-sets-generation
-
-Measuring for MLPPlayer and RandomPlayer, number of games: 1000
+[tommy@tomnok ~/repo/tic-tac-toe/src][master !]$ ./main.py --player-a TreePlayer --n-games=1000 --measure-train-sets-generation
+Measuring for TreePlayer and RandomPlayer, number of games: 1000
 Now measuring train set sizes:
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 2
-/usr/lib/python3.6/site-packages/sklearn/neural_network/multilayer_perceptron.py:358: UserWarning: Got `batch_size` less than 1 or larger than sample size. It is going to be clipped
-  warnings.warn("Got `batch_size` less than 1 or larger than "
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:289, D:70, L:141)
+(W:350, D:61, L:89)
 B begins:
-(W:126, D:78, L:296)
+(W:180, D:79, L:241)
 Totals:
-(W:415, D:148, L:437)
+(W:530, D:140, L:330)
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 10
-/usr/lib/python3.6/site-packages/sklearn/neural_network/multilayer_perceptron.py:358: UserWarning: Got `batch_size` less than 1 or larger than sample size. It is going to be clipped
-  warnings.warn("Got `batch_size` less than 1 or larger than "
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:313, D:72, L:115)
+(W:280, D:53, L:167)
 B begins:
-(W:170, D:96, L:234)
+(W:118, D:52, L:330)
 Totals:
-(W:483, D:168, L:349)
+(W:398, D:105, L:497)
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 100
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:319, D:59, L:122)
+(W:344, D:36, L:120)
 B begins:
-(W:176, D:66, L:258)
+(W:243, D:31, L:226)
 Totals:
-(W:495, D:125, L:380)
+(W:587, D:67, L:346)
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 500
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:428, D:60, L:12)
+(W:362, D:48, L:90)
 B begins:
-(W:325, D:58, L:117)
+(W:215, D:77, L:208)
 Totals:
-(W:753, D:118, L:129)
+(W:577, D:125, L:298)
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 1000
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:289, D:82, L:129)
+(W:402, D:43, L:55)
 B begins:
-(W:142, D:72, L:286)
+(W:259, D:44, L:197)
 Totals:
-(W:431, D:154, L:415)
+(W:661, D:87, L:252)
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 5000
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:463, D:33, L:4)
+(W:442, D:23, L:35)
 B begins:
-(W:385, D:81, L:34)
+(W:352, D:67, L:81)
 Totals:
-(W:848, D:114, L:38)
+(W:794, D:90, L:116)
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 10000
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:470, D:30, L:0)
+(W:468, D:14, L:18)
 B begins:
-(W:395, D:80, L:25)
+(W:408, D:25, L:67)
 Totals:
-(W:865, D:110, L:25)
-
+(W:876, D:39, L:85)
 
 
 
@@ -102,48 +94,48 @@ Now measuring different train sets:
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 1000
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:419, D:76, L:5)
+(W:413, D:29, L:58)
 B begins:
-(W:327, D:105, L:68)
+(W:253, D:63, L:184)
 Totals:
-(W:746, D:181, L:73)
-Train set: MLPPlayer vs RandomPlayer. Number of games in set: 1000
+(W:666, D:92, L:242)
+Train set: TreePlayer vs RandomPlayer. Number of games in set: 1000
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:235, D:50, L:215)
+(W:372, D:43, L:85)
 B begins:
-(W:140, D:35, L:325)
+(W:200, D:56, L:244)
 Totals:
-(W:375, D:85, L:540)
-Train set: MLPPlayer vs MLPPlayer. Number of games in set: 1000
+(W:572, D:99, L:329)
+Train set: TreePlayer vs TreePlayer. Number of games in set: 1000
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:337, D:55, L:108)
+(W:342, D:56, L:102)
 B begins:
-(W:179, D:68, L:253)
+(W:157, D:73, L:270)
 Totals:
-(W:516, D:123, L:361)
+(W:499, D:129, L:372)
 Train set: RandomPlayer vs RandomPlayer. Number of games in set: 1000
 Test begins...
 Stats:
-A - 1 - MLPPlayer
+A - 1 - TreePlayer
 B - -1 - RandomPlayer
 Number of wins for each player:
 A begins:
-(W:450, D:32, L:18)
+(W:370, D:43, L:87)
 B begins:
-(W:343, D:52, L:105)
+(W:276, D:43, L:181)
 Totals:
-(W:793, D:84, L:123)
+(W:646, D:86, L:268)
