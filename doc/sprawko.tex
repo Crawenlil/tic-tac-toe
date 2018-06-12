@@ -73,6 +73,50 @@
   \end{tabular}
 \end{center}
 
+\subsubsection{Wpływ graczy użytych do generowania zbioru uczącego}
+
+\begin{center}
+  \begin{tabular}{ | l | l | l | l | }
+    \hline
+    użyci gracze & próba 1 & próba 2 & próba 3 \\ \hline
+    RandomPlayer vs RandomPlayer & (W:801, D:100, L:99) & (W:746, D:181, L:73) & (W:469, D:133, L:398) \\ \hline
+    MLPPlayer vs RandomPlayer & (W:441, D:132, L:427) & (W:375, D:85, L:540) & (W:439, D:154, L:407) \\ \hline
+    MLPPlayer vs MLPPlayer & (W:498, D:131, L:371) & (W:516, D:123, L:361) & (W:415, D:159, L:426) \\ \hline
+    RandomPlayer vs RandomPlayer & (W:747, D:163, L:90) & (W:793, D:84, L:123) & (W:825, D:80, L:95) \\ \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Badanie dla drzewa decyzyjnego}
+
+\subsubsection{Wpływ rozmiaru zbioru uczącego na wyniki}
+
+\begin{center}
+  \begin{tabular}{ | l | l | l | l | }
+    \hline
+    liczba gier w zbiorze & próba 1 & próba 2 & próba 3 \\ \hline
+    2 & (W:530, D:140, L:330) & (W:455, D:124, L:421) & (W:399, D:147, L:454) \\ \hline
+    10 & (W:398, D:105, L:497) & (W:462, D:129, L:409) & (W:485, D:109, L:406) \\ \hline
+    100 & (W:587, D:67, L:346) & (W:552, D:120, L:328) & (W:523, D:104, L:373) \\ \hline
+    500 & (W:577, D:125, L:298) & (W:622, D:90, L:288) & (W:615, D:65, L:320) \\ \hline
+    1000 & (W:661, D:87, L:252) & (W:659, D:91, L:250) & (W:637, D:93, L:270) \\ \hline
+    5000 & (W:794, D:90, L:116) & (W:825, D:49, L:126) & (W:804, D:74, L:122) \\ \hline
+    10000 & (W:876, D:39, L:85) & (W:887, D:62, L:51) & (W:899, D:67, L:34) \\ \hline
+  \end{tabular}
+\end{center}
+
+\subsubsection{Wpływ graczy użytych do generowania zbioru uczącego}
+
+\begin{center}
+  \begin{tabular}{ | l | l | l | l | }
+    \hline
+    użyci gracze & próba 1 & próba 2 & próba 3 \\ \hline
+    RandomPlayer vs RandomPlayer & (W:666, D:92, L:242) & (W:681, D:57, L:262) & (W:686, D:92, L:222) \\ \hline
+    MLPPlayer vs RandomPlayer & (W:572, D:99, L:329) & (W:483, D:118, L:399) & (W:463, D:137, L:400) \\ \hline
+    MLPPlayer vs MLPPlayer & (W:499, D:129, L:372) & (W:503, D:115, L:382) & (W:474, D:70, L:456) \\ \hline
+    RandomPlayer vs RandomPlayer & (W:646, D:86, L:268) & (W:654, D:66, L:280) & (W:695, D:95, L:210) \\ \hline
+  \end{tabular}
+\end{center}
+
 
 \section{Porównanie Q-learningu i uczenia nadzorowanego}
 
