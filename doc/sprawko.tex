@@ -55,7 +55,9 @@
   \label{fig:L02G01_qlearning}
 \end{figure}
 
-\begin{center}
+\begin{table}
+  \centering
+  \caption{Badanie parametrów q-playera}
   \begin{tabular}{|l|l|l|l|}
     \hline
     Parametry & wygrana & remis & przegrana \\ \hline
@@ -81,7 +83,7 @@
     $\alpha = 0.5, \gamma = 1.0$ & 767 & 167 & 66 \\ \hline
     $\alpha = 0.5, \gamma = 2.0$ & 769 & 126 & 105 \\ \hline
   \end{tabular}
-\end{center}
+\end{table}
 
 \subsection{Q-player vs Q-Player}
 
@@ -99,6 +101,15 @@
   \fbox{\includegraphics[width=0.9\textwidth]{img/q_player_vs_tree.png}}
   \caption{Q-player vs Tree Player}
   \label{fig:q_player_vs_tree}
+\end{figure}
+
+\subsection{Q-player vs MLP}
+
+\begin{figure}[H]
+  \centering
+  \fbox{\includegraphics[width=0.9\textwidth]{img/q_player_vs_mlp.png}}
+  \caption{Q-player vs MLP Player}
+  \label{fig:q_player_vs_mlp}
 \end{figure}
 
 \section{Badanie uczenia nadzorowanego}
