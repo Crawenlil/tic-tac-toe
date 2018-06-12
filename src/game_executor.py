@@ -28,11 +28,13 @@ class GameExecutor(object):
             winners[winner] = winners.get(winner, 0) + 1
         return winners
 
-    def prepare_train_set(self, board_size, starting_player, n_games):
-        train = [self.play_game_no_ui(board_size, starting_player, return_history=True) for _ in range(n_games)]
+    def prepare_train_set(self, board_size, n_games):
+        n_games = int(n_games/2)
+        train1 = [self.play_game_no_ui(board_size, starting_player=PLAYER_X, return_history=True) for _ in range(n_games)]
+        train2 = [self.play_game_no_ui(board_size, starting_player=PLAYER_O, return_history=True) for _ in range(n_games)]
         X = []
         Y = []
-        for winner, game_states in train:
+        for winner, game_states in train1 + train2:
             for gs in game_states:
                 X.append(gs)
                 Y.append(winner)
