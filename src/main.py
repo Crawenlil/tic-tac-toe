@@ -171,6 +171,8 @@ def main():
     if args.measure_train_sets_generation:
         measure_train_sets_generation(args.player_a, args.player_b, args.n_games)
     elif args.compare_players:
+        # test(args.player_a, RandomPlayer("RandomPlayer"), args.with_ui, args.n_games)
+        # test(RandomPlayer("RandomPlayer"), args.player_b, args.with_ui, args.n_games)
         test(args.player_a, args.player_b, args.with_ui, args.n_games)
     else:
         play_with_hooman(args.player_a, args.player_b, board_size=3, with_ui=args.with_ui, n_games=args.n_games)
