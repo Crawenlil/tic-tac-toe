@@ -1,0 +1,209 @@
+clf = MLPRegressor(hidden_layer_sizes=(board_size*board_size, board_size*board_size, 1), batch_size=int(0.01*len(Y)), max_iter=1000)
+
+./main.py --player-a MLPPlayer --n-games=1000 --measure-train-sets-generation
+
+Measuring for MLPPlayer and RandomPlayer, number of games: 1000
+Now measuring train set sizes:
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 2
+/usr/lib/python3.6/site-packages/sklearn/neural_network/multilayer_perceptron.py:358: UserWarning: Got `batch_size` less than 1 or larger than sample size. It is going to be clipped
+  warnings.warn("Got `batch_size` less than 1 or larger than "
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 289
+0: 70
+-1: 141
+B begins:
+1: 126
+0: 78
+-1: 296
+Totals:
+1: 415
+0: 148
+-1: 437
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 10
+/usr/lib/python3.6/site-packages/sklearn/neural_network/multilayer_perceptron.py:358: UserWarning: Got `batch_size` less than 1 or larger than sample size. It is going to be clipped
+  warnings.warn("Got `batch_size` less than 1 or larger than "
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 313
+0: 72
+-1: 115
+B begins:
+1: 170
+0: 96
+-1: 234
+Totals:
+1: 483
+0: 168
+-1: 349
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 100
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 319
+0: 59
+-1: 122
+B begins:
+1: 176
+0: 66
+-1: 258
+Totals:
+1: 495
+0: 125
+-1: 380
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 500
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 428
+0: 60
+-1: 12
+B begins:
+1: 325
+0: 58
+-1: 117
+Totals:
+1: 753
+0: 118
+-1: 129
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 1000
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 289
+0: 82
+-1: 129
+B begins:
+1: 142
+0: 72
+-1: 286
+Totals:
+1: 431
+0: 154
+-1: 415
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 5000
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 463
+0: 33
+-1: 4
+B begins:
+1: 385
+0: 81
+-1: 34
+Totals:
+1: 848
+0: 114
+-1: 38
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 10000
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 470
+0: 30
+-1: 0
+B begins:
+1: 395
+0: 80
+-1: 25
+Totals:
+1: 865
+0: 110
+-1: 25
+Now measuring different train sets:
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 1000
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 419
+0: 76
+-1: 5
+B begins:
+1: 327
+0: 105
+-1: 68
+Totals:
+1: 746
+0: 181
+-1: 73
+Train set: MLPPlayer vs RandomPlayer. Number of games in set: 1000
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 235
+0: 50
+-1: 215
+B begins:
+1: 140
+0: 35
+-1: 325
+Totals:
+1: 375
+0: 85
+-1: 540
+Train set: MLPPlayer vs MLPPlayer. Number of games in set: 1000
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 337
+0: 55
+-1: 108
+B begins:
+1: 179
+0: 68
+-1: 253
+Totals:
+1: 516
+0: 123
+-1: 361
+Train set: RandomPlayer vs RandomPlayer. Number of games in set: 1000
+Test begins...
+Stats:
+A - 1 - MLPPlayer
+B - -1 - RandomPlayer
+Number of wins for each player:
+A begins:
+1: 450
+0: 32
+-1: 18
+B begins:
+1: 343
+0: 52
+-1: 105
+Totals:
+1: 793
+0: 84
+-1: 123

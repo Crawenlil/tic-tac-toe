@@ -73,7 +73,7 @@ def prepare_supervised_train_set(player_a, player_b, board_size, n_games):
 def train_mlp_super_player(train):
     X, Y = train
     board_size = train[0][0].board.board.shape[0]
-    clf = MLPRegressor(hidden_layer_sizes=(board_size*board_size, board_size*board_size, 1), batch_size=int(0.001*len(Y)), max_iter=1000)
+    clf = MLPRegressor(hidden_layer_sizes=(board_size*board_size, board_size*board_size, 1), batch_size=int(0.01*len(Y)), max_iter=1000)
     return train_super_player(clf, train, "MLPPlayer")
 
 def train_tree_super_player(train):
@@ -114,20 +114,37 @@ def play_with_hooman(a, b, board_size, with_ui, n_games):
     winner = game_executor.play(board_size=board_size, starting_player=PLAYER_X, n_games=n_games, with_ui=with_ui)
 
 def measure_train_sets_generation(player_a, player_b, n_games):
-    train_set_games = 1000
-    def _measure_for_train_set(tra, trb, train_only=False):
+    def _measure_for_train_set(tra, trb, train_only=False, do_partial_fit=False, train_set_games=1000):
         if not train_only:
             print("Train set: {} vs {}. Number of games in set: {}".format(tra, trb, train_set_games))
         train = prepare_supervised_train_set(tra, tra, 3, n_games=train_set_games)
         X, Y = train
         if hasattr(player_a, "classifier"):
-            player_a.classifier.fit(X, Y)
+            if do_partial_fit:
+                if hasattr(player_a.classifier, "partial_fit"):
+                    player_a.classifier.partial_fit(X, Y)
+                else:
+                    return
+            else:
+                player_a.classifier.fit(X, Y)
         if hasattr(player_b, "classifier"):
-            player_b.classifier.fit(X, Y)
+            if do_partial_fit:
+                if hasattr(player_b.classifier, "partial_fit"):
+                    player_b.classifier.partial_fit(X, Y)
+                else:
+                    return
+            else:
+                player_b.classifier.fit(X, Y)
         if not train_only:
             test(player_a, player_b, ui=False, n_games=n_games)
-            
+
     print("Measuring for {} and {}, number of games: {}".format(player_a, player_b, n_games))
+
+    print("Now measuring train set sizes:")
+    for i in [2, 10, 100, 500, 1000, 5000, 10000]:
+        _measure_for_train_set(RandomPlayer("RandomPlayer"), RandomPlayer("RandomPlayer"), train_set_games=i)
+    
+    print("Now measuring different train sets:")
     _measure_for_train_set(RandomPlayer("RandomPlayer"), RandomPlayer("RandomPlayer"))
 
     _measure_for_train_set(player_a, player_b)
@@ -137,6 +154,17 @@ def measure_train_sets_generation(player_a, player_b, n_games):
 
     _measure_for_train_set(RandomPlayer("RandomPlayer"), RandomPlayer("RandomPlayer"), train_only=True)
     _measure_for_train_set(player_b, player_b)
+
+    # print("Now with partial fits")
+
+    # _measure_for_train_set(RandomPlayer("RandomPlayer"), RandomPlayer("RandomPlayer"), train_only=True)
+    # _measure_for_train_set(player_a, player_b, do_partial_fit=True)
+
+    # _measure_for_train_set(RandomPlayer("RandomPlayer"), RandomPlayer("RandomPlayer"), train_only=True)
+    # _measure_for_train_set(player_a, player_a, do_partial_fit=True)
+
+    # _measure_for_train_set(RandomPlayer("RandomPlayer"), RandomPlayer("RandomPlayer"), train_only=True)
+    # _measure_for_train_set(player_b, player_b, do_partial_fit=True)
 
 def main():
     args = parse_args()
