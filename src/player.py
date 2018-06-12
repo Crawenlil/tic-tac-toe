@@ -77,14 +77,16 @@ class QPlayer(Player):
 
     def get_best_actoion(self, state, q_table):
         '''If q[state] is empty, then inserts set of avaliable actions, else returns current best action'''
-        best_action, best_value = None, -1
+        best_action, best_value = None, None
         hs = hash(state)
         if hs in q_table:
             state_q = q_table[hs] 
             for action, value in state_q.items():
-                if value > best_value:
+                if best_value is None or value > best_value:
                     best_action = action
                     best_value = value
+                    if best_action == None:
+                        print("HERE")
         else:
             actions = game_engine.actions(state)
             if actions:
@@ -95,11 +97,11 @@ class QPlayer(Player):
         return best_action
 
     def update_q(self, state, q_table):
-        next_best_action = self.get_best_actoion(state, turn)
+        next_best_action = self.get_best_actoion(state, q_table)
         next_best_action_value = 0
         if next_best_action:
-            next_best_action_value = q-table[hash(state)][next_best_action]
-        self.prev_state_dict[self.action] = (1 - self.alpha) * self.prev_state_dict[self.action] + self.alpha * self.gamma * next_best_action_value
+            next_best_action_value = q_table[hash(state)][next_best_action]
+        self.prev_state_dict[self.best_action] = (1 - self.alpha) * self.prev_state_dict[self.best_action] + self.alpha * self.gamma * next_best_action_value
 
     def update_winner(self, reward):
-        self.prev_state_dict[self.action] += self.alpha * reward
+        self.prev_state_dict[self.best_action] += self.alpha * reward
