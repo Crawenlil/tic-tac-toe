@@ -86,7 +86,7 @@ def train_q_player(board_size, train_set_size):
     random = RandomPlayer("Random")
     q_player = QPlayer("QPlayer", 0.5, 0.1) 
     game_executor = GameExecutor(q_player, random)
-    game_executor.play(board_size=board_size, starting_player=PLAYER_X, n_games=train_set_size, with_ui=False)
+    game_executor.train_q_player(board_size=board_size, q_player=q_player, starting_player=PLAYER_X, n_games=train_set_size, with_ui=False)
     return q_player
 
 def test(player1, player2, ui, n_games):

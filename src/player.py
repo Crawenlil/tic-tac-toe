@@ -64,47 +64,44 @@ class QPlayer(Player):
         super(QPlayer, self).__init__(name)
         self.alpha = alpha
         self.gamma = gamma
-        self.q = self.init_q()
-
-    def init_q(self):
-        return {}
+        self.Xq = {}
+        self.Oq = {}
 
     def make_move(self, state):
-        best_action = self.get_best_actoion(state)
-        prev_state_dict = self.q[hash(state)] #store reference, so after changing state to new we can still update value
-        game_engine.make_move(state, best_action)
-        self.update_q(prev_state_dict, state, best_action)
+        q_table = self.Oq if state.turn == PLAYER_O else self.Xq 
+        self.best_action = self.get_best_actoion(state, q_table)
+        self.prev_state_dict = q_table[hash(state)] #store reference, so after changing state to new we can still update value
+        game_engine.make_move(state, self.best_action)
+        self.update_q(state, q_table)
         super(QPlayer, self).make_move(state)
 
-    def get_best_actoion(self, state):
+    def get_best_actoion(self, state, q_table):
         '''If q[state] is empty, then inserts set of avaliable actions, else returns current best action'''
-        best_action, best_value = None, -1
+        best_action, best_value = None, None
         hs = hash(state)
-        if hs in self.q:
-            state_q = self.q[hs] 
+        if hs in q_table:
+            state_q = q_table[hs] 
             for action, value in state_q.items():
-                if value > best_value:
+                if best_value is None or value > best_value:
                     best_action = action
                     best_value = value
+                    if best_action == None:
+                        print("HERE")
         else:
             actions = game_engine.actions(state)
             if actions:
-                self.q[hs] = dict.fromkeys(actions, 0)
+                q_table[hs] = dict.fromkeys(actions, 0)
                 best_action = random.choice(actions)
             else:
                 best_action = None
         return best_action
 
-    def update_q(self, prev_state_dict, state, action):
-        reward = game_engine.get_winner(state)
-        if reward is None:
-            reward = 0
-        reward = abs(reward)
-        next_best_action = self.get_best_actoion(state)
+    def update_q(self, state, q_table):
+        next_best_action = self.get_best_actoion(state, q_table)
         next_best_action_value = 0
         if next_best_action:
-            next_best_action_value = self.q[hash(state)][next_best_action]
-        prev_state_dict[action] = (1 - self.alpha) * prev_state_dict[action] + self.alpha * (reward + self.gamma * next_best_action_value)
+            next_best_action_value = q_table[hash(state)][next_best_action]
+        self.prev_state_dict[self.best_action] = (1 - self.alpha) * self.prev_state_dict[self.best_action] + self.alpha * self.gamma * next_best_action_value
 
-         
-
+    def update_winner(self, reward):
+        self.prev_state_dict[self.best_action] += self.alpha * reward

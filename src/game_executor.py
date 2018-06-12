@@ -28,6 +28,16 @@ class GameExecutor(object):
             winners[winner] = winners.get(winner, 0) + 1
         return winners
 
+    def train_q_player(self, board_size, q_player, starting_player=PLAYER_X, n_games=1):
+        winners = defaultdict(int)
+        q_player_val = 1 if q_player == self.player_x else -1
+        for _ in range(n_games):
+            winner = self.play_game_no_ui(board_size, starting_player)
+            q_player.update_winner(winner * q_player_val)
+            winners[winner] += 1
+            starting_player *= -1
+        return winners
+
     def prepare_train_set(self, board_size, n_games):
         n_games = int(n_games/2)
         train1 = [self.play_game_no_ui(board_size, starting_player=PLAYER_X, return_history=True) for _ in range(n_games)]
