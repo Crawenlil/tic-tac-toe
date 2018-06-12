@@ -1,6 +1,7 @@
 import game_engine
 from utils import *
 import random
+import numpy as np
 import copy
 
 class Player(object):
@@ -50,9 +51,10 @@ class SupervisedLearningPlayer(Player):
             applied_actions.append(tmp_state)
         action_scores = self.classifier.predict(applied_actions)
         if state.turn < 0:
-            best_action_index = action_scores.argmin()
+            best_action_indexes = np.where(action_scores == action_scores.min())[0]
         else:
-            best_action_index = action_scores.argmax()
+            best_action_indexes = np.where(action_scores == action_scores.max())[0]
+        best_action_index = random.choice(best_action_indexes)
         action = actions[best_action_index]
         game_engine.make_move(state, action)
         super(SupervisedLearningPlayer, self).make_move(state)
